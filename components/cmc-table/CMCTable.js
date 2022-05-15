@@ -1,11 +1,12 @@
 import React, { useState, useContext, useCallback, useEffect } from "react";
-
-// import btc from "../../assets/btc.png";
+import btc from "../../assets/btc.png";
 import { CoinMarketContext } from "../../context/context";
+import CMCTableRow from "../cmc-table/CMCTableRow";
+import CMCTableHeader from "./CMCTableHeader";
 
 const CMCtable = () => {
   let { getTopTenCoins } = useContext(CoinMarketContext);
-  let [coinData, setCoinData] = useState(null);
+  let [coinData, setCoinData] = useState();
 
   useEffect(() => {
     setData();
@@ -27,7 +28,40 @@ const CMCtable = () => {
     }
   }, [getTopTenCoins]);
 
-  return <div className="text-white font-bold"></div>;
+  return (
+    <div className="text-white font-bold">
+      <div className="mx-auto max-w-screen-2xl">
+        <table className="w-full">
+          <CMCTableHeader />
+
+          {coinData && coinData ? (
+            coinData.map((coin, index) => {
+              return (
+                <CMCTableRow
+                  key={index}
+                  starNum={coin.cmc_rank}
+                  coinName={coin.name}
+                  coinSymbol={coin.symbol}
+                  coinIcon={btc}
+                  showBuy={true}
+                  hRate={coin.quote.USD.percent_change_24h}
+                  dRate={coin.quote.USD.percent_change_7d}
+                  hRateIsIncrement={true}
+                  price={coin.quote.USD.price}
+                  marketCapValue={coin.quote.USD.market_cap}
+                  volumeCryptoValue={coin.quote.USD.volume_24h}
+                  volumeValue={coin.total_supply}
+                  circulatingSupply={coin.circulating_supply}
+                />
+              );
+            })
+          ) : (
+            <></>
+          )}
+        </table>
+      </div>
+    </div>
+  );
 };
 
 export default CMCtable;
