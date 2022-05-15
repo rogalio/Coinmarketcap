@@ -1,0 +1,21 @@
+import { createContext, useState, UseEffect } from "react";
+
+export const CoinMarketContext = createContext();
+
+export const CoinMarketProvider = ({ children }) => {
+  const getTopTenCoins = async () => {
+    try {
+      const res = await fetch("/api/getTopTen");
+      const data = await res.json();
+      return data.data.data;
+    } catch {
+      console.log(error.message);
+    }
+  };
+
+  return (
+    <CoinMarketContext.Provider value={{ getTopTenCoins }}>
+      {children}
+    </CoinMarketContext.Provider>
+  );
+};
