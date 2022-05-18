@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Fire from "../assets/Fire.png";
+import Fire from "../assets/fire.png";
 import btc from "../assets/btc.png";
 import usdt from "../assets/usdt.png";
 import gainers from "../assets/gainers.png";
