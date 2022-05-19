@@ -3,6 +3,8 @@ import ChevronDown from "../assets/svg/svg/chevronDown";
 import ChevronUp from "../assets/svg/svg/chevronUp";
 import shiba from "../assets/shiba.png";
 import Image from "next/image";
+import Button from "./Button";
+import ChatCard from "./ChatCard";
 
 const styles = {
   bullishLabel: `flex cursor-pointer active:bg-green-600 items-center text text-green-600 border border-green-600 h-min px-2 rounded-lg`,
@@ -20,7 +22,98 @@ const styles = {
 };
 
 const Chat = () => {
-  return <div>Chat</div>;
+  const [message, setMessage] = useState("");
+  const [bullishValue, setBullishValue] = useState(true);
+
+  return (
+    <>
+      <div className={styles.chat}>
+        <div className={styles.flexBetween}>
+          <p className={styles.boldText}>Live Chat</p>
+          <p className="text-[#6188FF]">See more</p>
+        </div>
+
+        <br />
+
+        <div className={styles.chatContainer}>
+          <div className={styles.flexBetween}>
+            <div className={styles.flexCenter}>
+              <div>
+                <Image alt="" src={shiba} width={70} height={70} />
+              </div>
+              <div className="text-left mr-10">
+                <b>Rolf</b>
+                <p className="text-gray-400">@rogalio</p>
+              </div>
+            </div>
+
+            <div className={styles.flexCenter}>
+              <div
+                className={
+                  !bullishValue
+                    ? styles.bullishLabel
+                    : styles.activeBullishLabel
+                }
+                onClick={() => setBullishValue(true)}
+              >
+                <ChevronUp fill="#17C784" />
+                <small className="ml-1">Bullish</small>
+              </div>
+              &nbsp; &nbsp;
+              <div
+                className={
+                  bullishValue ? styles.bearishLabel : styles.activeBearishLabel
+                }
+                onClick={() => setBullishValue(false)}
+              >
+                <ChevronDown fill="#a52b2b" />
+                <small className="ml-1">Bearish</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="flex">
+        <div className="flex items-center text text-green-600">
+          <ChevronUp fill="#22bc64" />
+          <small className="ml-1">Bullish</small>
+        </div>
+        &nbsp; &nbsp;
+        <div className="flex items-center text-red-500">
+          <ChevronDown fill="#a52b2b" />
+          <small className="ml-1">Bearish</small>
+        </div>
+      </div>
+
+      <input
+        className={styles.input}
+        placeholder="What's happening on BTC?"
+        value={message}
+        onChange={(e) => setMessage(e.target.value)}
+      />
+
+      <div className={styles.postButtonContainer}>
+        <Button label="Post" />
+      </div>
+      <ChatCard
+        sender={message.sender}
+        senderUsername={message.username}
+        senderAvatar="https:/encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3OCSMFIW5fZ3vSN6yGpD-w-6SsL2_ZPA_sw&usqp=CAU"
+        bullish={message.isBullish}
+        timestamp={message.createdAt}
+        content={message.content}
+        likes="2.7K"
+        comments="19K"
+      />
+      {/* {formattedMessagesArray()
+        .slice(0)
+        .reverse()
+        .map((message, index) => (
+        
+        ))} */}
+    </>
+  );
 };
 
 export default Chat;
