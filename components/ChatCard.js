@@ -4,7 +4,7 @@ import Comment from "../assets/svg/svg/comment";
 import Heart from "../assets/svg/svg/heart";
 import MoreHorizontal from "../assets/svg/svg/moreHorizontal";
 import Share from "../assets/svg/svg/share";
-import BearishFilled from "./buttons/bearishFilled";
+import BearishFilled from "./buttons/BearishFilled";
 import BullishFilled from "./buttons/bullishFilled";
 import Image from "next/image";
 
